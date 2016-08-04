@@ -1,0 +1,77 @@
+The following details how future improvements to the web app, and processes for developing it, would enhance security, reliability and speed (and there is some discussion of other factors towards the end).
+
+=== Security ===
+
+There are some obvious security improvements to be made - strictly filtering web user for content injection, for instance.  Using HTTPS across the site would also be a very good idea.
+
+A good authentication / authorization model would ensure no data was disclosed in the wrong contexts.  Since the UI is built on top of the API, permissions concerns can be enforced at the API layer.
+
+Developing some kind of data encryption scheme on the backend for patient data might be desirable, although that comes at the cost of performance.
+
+Offsite, encrypted backups of essential data would prevent catastrophic data loss.
+
+A good practice is to have security experts red team the app every so often to look for security flaws.
+
+=== Reliability ===
+
+Reliability basically comes down to redundancy in the architecture and good development processes.
+
+Thoroughly testing code before it gets pushed to production is key, and perhaps even more important is the ability to be able to react to issues in production fast.  A good staging environment that simulates production would provide a last-minute opportunity to ensure production would be stable.  A robust monitoring and alerting system would notify engineers of potential problems.  Continuous integration and deployment (in most cases) should be practiced.
+
+Scaling out machines horizontally is a good way to practice redundancy.  This could be load balancing between web servers, sharding databases, adding database read slaves, etc.  Doing this generally increases availability, albeit at the cost of complexity.  If we're running on AWS, we should be running in multiple availability zones.
+
+If it's under our control, we should ensure that users use modern web browser.  If that's not, we should ensure that the site works with older versions of various browsers that clients may use.
+
+Perhaps this goes without saying, but tracking bugs and using version control are essential for a functional application over time.
+
+=== Speed ===
+
+On the front-end side there are many well-known practices for speeding up a web apps: CDNs, minimizing HTTP requests, reducing DNS lookups, avoiding redirects, minifying Javascript, gzipping, etc.  
+
+Caching the metadata tables in memory on both server and client side would reduce database lookups and network requests.  Just generally caching at every level, where possible, is a good practice for performance.  The application is expected to be read-heavy, which makes this easy.
+
+Since the bottleneck of web applications is usually the database, a number of techniques can be used to speed that up: getting fast disk hardware, indexing tables judiciously, denormalizing data where appropriate and optimizing or eliminating queries.
+
+Having servers close to clients would reduce network latency.  If clients are geographically dispersed, it would be worth investigating optimizing the server topology appropriately.
+
+In the long run, it may be worth writing critical code sections in a fast, compiled language to give a performance boost to the application.
+
+=== Data Model ===
+
+Right now, there are really only three objects in the database: Patients, Vitals and Measurements.  The Vitals object is a relatively inflexible metadata store.  Improvements could include: 
+
+- Adding doctors, nurses, administrators, hospitals, etc. into the model (essential for authentication / authorization model)
+- Making the measurements more strongly typed and flexible through a more sophisticated metadata-driven data model.  
+
+=== Authentication / Authorization ===
+
+Currently, no authentication or authorization exists in the app.  Obviously there should be at some point, with the following questions in mind:
+
+- Who should have access to patient vitals?  Doctors?  Administrators?  Potentially more than one doctor per patient?  And who should have the capability to modify vitals?
+- Should patient information be able to transfer across care centers?
+
+=== Auditing ===
+
+It would be nice to have an audit trail for this important vital information.  The following improvements would help:
+
+- Adding database fields that track creation time, last modification time, and user that did each to Patient and Vitals objects
+- Not deleting a Vitals or Patient object out of the data store upon deleting in the UI, but merely setting a new status field to DELETED
+
+=== User Interface ===
+
+The UI design is fine for small data sets, but would become cumbersome for large ones.  At that point, a different design may be needed: for instance some kind of autosuggest query form field for the list of users which returns results on demand.  Right now the graphs/tables only display the last N data points, but the capability to generate reports, or look further back in time on another web page, would be good for larger data sets.
+
+Error handling in the UI is pretty weak right now.  Better error handling would check user input on the client side as well as display helpful error messages to the user in a variety of error states.
+
+There are probably some redundant requests to the server right now that could be consolidated with others.  Or special endpoints could be created for specific pages.
+
+For larger models, and especially for metadata-driven ones, programmatic form creation and population would be necessary rather than manually specifying fields, as is done now.
+
+Obviously, CSS/design stuff could be improved.
+
+There could probably be some nice visual indicators to correlate a particular table row to the graph data point when, say, mousing over the data.
+
+=== Testing ===
+
+Currently no testing is implemented.  Testing could take place at all layers, which would help with reliability.  A continuous integration and deployment system could help ensure reliability over time.
+

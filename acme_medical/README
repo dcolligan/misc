@@ -1,0 +1,3 @@
+A bare-bones site for viewing and editing patient records.  It uses the Django Rest Framework to create a REST API which an Angular.js app sits on top of.
+
+See the TODO file for potential improvements.

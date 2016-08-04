@@ -1,0 +1,28 @@
+{% load staticfiles %}
+
+<!doctype html>
+<html lang="en" ng-app="mainApp">
+   <head>
+      <meta charset="utf-8">
+
+      <title>Vitals</title>
+
+      <link href="{% static "css/bootstrap.css" %}" rel="stylesheet" media="screen">
+
+      <script src="{% static "js/jquery.js" %}"></script>
+      <script src="{% static "js/angular.js" %}"></script>
+      <script src="{% static "js/angular-route.js" %}"></script>
+      <script src="{% static "js/angular-resource.js" %}"></script>
+      <script src="{% static "js/app.js" %}"></script>
+      <script src="{% static "js/controllers.js" %}"></script>
+      <script src="{% static "js/services.js" %}"></script>
+      <script src="{% static "js/bootstrap.js" %}"></script>
+      <script src="{% static "js/Chart.js" %}"></script>
+      <script src="{% static "js/moment.js" %}"></script>
+   </head>
+   <body>
+      <div class="container">
+         <div ng-view ></div>
+      </div>
+   </body>
+</html>

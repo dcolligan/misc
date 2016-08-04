@@ -1,0 +1,5 @@
+- in both modes, get_top_n could be canged to use a partition-based algorithm rather than sorting
+- in rolling mode, the dates array in the retweet cache object could be changed to a minheap
+- make context/status OO to eliminate mode switches
+- refactor OO to use ABCs
+- tests

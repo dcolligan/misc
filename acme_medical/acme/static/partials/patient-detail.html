@@ -1,0 +1,87 @@
+<ol class="breadcrumb">
+   <li><a href="#/patients"><h4>Patient List</h4></a></li>
+   <span>&nbsp;/&nbsp;</span>
+   <li class="active"><h4>{[{patient.name}]}<h4></li>
+   <li class="pull-right">
+      <button ng-click="vitalCreateModalLaunch()" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#vitalCreateModalPD">Add New Measurement</button>
+   <li>
+</ol>
+
+<div class="span5">
+   <div>
+      <div>
+         <a href="#/patients/{[{patient.id}]}/temperature">Temperature</a>
+      </div>
+      <canvas id="temperature-chart" width="400" height="300"></canvas>
+   </div>
+   <div>
+      <div>
+         <a href="#/patients/{[{patient.id}]}/respiratory-rate">Respiratory Rate</a>
+      </div>
+      <canvas id="respiratory-rate-chart" width="400" height="300"></canvas>
+   </div>
+</div>
+<div class="span1">
+</div>
+<div class="span5">
+   <div>
+      <div>
+         <a href="#/patients/{[{patient.id}]}/heart-rate">Heart Rate</a>
+      </div>
+      <canvas id="heart-rate-chart" width="400" height="300"></canvas>
+   </div>
+   <div>
+      <div>
+         <a href="#/patients/{[{patient.id}]}/blood-pressure">Blood Pressure</a>
+      </div>
+      <canvas id="blood-pressure-chart" width="400" height="300"></canvas>
+   </div>
+</div>
+
+<!-- Modals -->
+
+<div class="modal fade" id="vitalCreateModalPD" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+   <div class="modal-dialog">
+      <div class="modal-content">
+         <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            <h4 class="modal-title" id="myModalLabel">Add New Vital</h4>
+         </div>
+         <div class="modal-body">
+            <table class="table table-striped">
+               <tr>
+                  <td>Patient Name</td>
+                  <td>{[{patient.name}]}</td>
+               </tr>
+               <tr>
+                  <td>Vital Name</td>
+                  <td>
+                     <select id="modalSelectVital" ng-model="slug" ng-change="modalSelectChange(slug)">
+                        <option ng-repeat="vital in vitals " value="{[{ vital.slug }]}">
+                           {[{vital.name}]}
+                        </option>
+                     </select>
+                  </td>
+               </tr>
+               <tr class="singleUnitCount">
+                  <td>Vital Value</td>
+                  <td><input class="vitalCreateValue1"></input></td>
+               </tr>
+               <tr class="doubleUnitCount" style="display:none">
+                  <td>Value (systolic)</td>
+                  <td><input class="vitalCreateValue1"></input></td>
+               </tr>
+               <tr class="doubleUnitCount" style="display:none">
+                  <td>Value (diastolic)</td>
+                  <td><input class="vitalCreateValue2"></input></td>
+               </tr>
+            </table>
+            <span id="vitalCreatePatient" style="display:none">{[{ patient.id }]}</span>
+         </div>
+         <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" ng-click="vitalSave(patient.id)">Save New Vital</button>
+         </div>
+      </div>
+   </div>
+</div>

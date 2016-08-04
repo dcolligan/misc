@@ -1,0 +1,80 @@
+<div>
+   <ol class="breadcrumb">
+      <li class="active"><h4>Patient List</h4></li>
+   </ol>
+   <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#patientCreateModal">
+      Add New Patient
+   </button>
+   <br>
+   <br>
+   <table class="table table-striped">
+      <tr>
+         <th>Name</th>
+         <th>Modify</th>
+         <th>Delete</th>
+      </tr>
+      <tr ng-repeat="patient in patients | orderBy: patient.name">
+         <td><b><a id="patientName-{[{patient.id}]}" href="#/patients/{[{patient.id}]}">{[{patient.name}]}</a></b></td>
+         <td>
+            <button ng-click="patientModify(patient.id)">
+               <i class="icon-pencil"></i>
+            </button>
+         </td>
+         <td>
+            <button href="" ng-click="patientDelete(patient.id)">
+               <i class="icon-remove"></i>
+            </button>
+         </td>
+      </tr>
+   </table>
+   <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#patientCreateModal">
+      Add New Patient
+   </button>
+</div>
+
+<div class="modal fade" id="patientCreateModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+   <div class="modal-dialog">
+      <div class="modal-content">
+         <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            <h4 class="modal-title" id="myModalLabel">Add New Patient</h4>
+         </div>
+         <div class="modal-body">
+            <table>
+               <tr>
+                  <td>Patient Name</td>
+                  <td><input id="patientCreateName"></input></td>
+               </tr>
+            </table>
+         </div>
+         <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" ng-click="patientSave()">Save New Patient</button>
+         </div>
+      </div>
+   </div>
+</div>
+
+<div class="modal fade" id="patientModifyModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+   <div class="modal-dialog">
+      <div class="modal-content">
+         <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            <h4 class="modal-title" id="myModalLabel">Modify Patient</h4>
+         </div>
+         <div class="modal-body">
+            <table>
+               <tr>
+                  <td>Patient Name</td>
+                  <td><input id="patientModifyName"></input></td>
+               </tr>
+            </table>
+            <span id="patientModifyId" style="display:none"></span>
+         </div>
+         <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" ng-click="patientDoModify()">Save Patient</button>
+         </div>
+      </div>
+   </div>
+</div>

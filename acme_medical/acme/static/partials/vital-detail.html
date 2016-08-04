@@ -1,0 +1,98 @@
+<div>
+   <div>
+      <ol class="breadcrumb">
+         <li><a href="#/patients"><h4>Patient List</h4></a></li>
+         <span>&nbsp;/&nbsp;</span>
+         <li><a href="#/patients/{[{patient.id}]}"><h4>{[{patient.name}]}</h4></a></li>
+         <span>&nbsp;/&nbsp;</span>
+         <li class="active"><h4>{[{vital.name}]}</h4></li>
+         <li class="pull-right">
+            <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#vitalCreateModalVD">Add New Measurement</button>
+         <li>
+      </ol>
+   </div>
+
+   <div class="span6">
+      <canvas id="vitalDetailChart" width="400" height="300"></canvas>
+
+      <!--
+      <div>
+         Show <input type="text" size="5" id="vitalDetailNumResults" value="{[{ limit }]}"></input> results
+      </div>
+      <button ng-click="reload">
+         Go
+      </button>
+      -->
+
+   </div>
+
+   <div class="span5">
+      <table class="table table-striped">
+         <tr>
+            <th>Value ({[{vital.unitLabelShort}]})</th>
+            <th>Relative Date</th>
+            <th>Absolute Date</th>
+         </tr>
+         <tr ng-repeat="td in tableData | orderBy: td.date">
+            <td>{[{td.value}]}</td>
+            <td>{[{td.rDate}]}</td>
+            <td>{[{td.aDate}]}</td>
+         </tr>
+      </table>
+   </div>
+</div>
+
+<!-- Modals -->
+
+<div class="modal fade" id="vitalCreateModalVD" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+   <div class="modal-dialog">
+      <div class="modal-content">
+         <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            <h4 class="modal-title" id="myModalLabel">Add New Vital</h4>
+         </div>
+         <div class="modal-body">
+            <table class="table table-striped" ng-if="vital.unitCount == 2">
+               <tr>
+                  <td>Patient Name</td>
+                  <td>{[{patient.name}]}</td>
+               </tr>
+               <tr>
+                  <td>Vital Name</td>
+                  <td>{[{vital.name}]}</td>
+               </tr>
+               <tr>
+                  <td>Value (systolic)</td>
+                  <td><input id="vitalCreateValue1"></input></td>
+               </tr>
+               <tr>
+                  <td>Value (diastolic)</td>
+                  <td><input id="vitalCreateValue2"></input></td>
+               </tr>
+            </table>
+            <table class="table table-striped" ng-if="vital.unitCount == 1">
+               <tr>
+                  <td>Patient Name</td>
+                  <td>{[{patient.name}]}</td>
+               </tr>
+               <tr>
+                  <td>Vital Name</td>
+                  <td>{[{vital.name}]}</td>
+               </tr>
+               <tr>
+                  <td>Vital Value ({[{vital.unitLabelShort}]})</td>
+                  <td><input id="vitalCreateValue1"></input></td>
+               </tr>
+               <tr style="display:none">
+                  <td></td>
+                  <td><input id="vitalCreateValue2" value="0"></input></td>
+               </tr>
+            </table>
+         </div>
+         <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" ng-click="vitalSave(patient.id, vital.id)">Save New Vital</button>
+         </div>
+      </div>
+   </div>
+</div>

@@ -1,0 +1,31 @@
+$def with (ctx)
+
+<html>
+   <head>
+      <link rel="stylesheet" href="/static/bootstrap.css"/>
+      <script src="/static/bootstrap.js"></script>
+      <title>
+         File Viewer
+      </title>
+   </head>
+   <body>
+      <div class="container">
+         <h3>File Viewer</h3>
+         <span>Current Directory: <b>$ctx.path</b></span>
+         <br>
+         <a href="$ctx.home_path" title="Home"><i class="icon-home"></i></a>
+         <a href="$ctx.up_path" title="Up"><i class="icon-arrow-up"></i></a>
+         <br>
+         <br>
+         $for file in ctx.filelist:
+            $if file.isdir:
+               <span><i class="icon-folder-close"></i></span><a href="$file.path">$file.name</a>
+            $else:
+               <span><i class="icon-file"></i></span><a href="$file.path">$file.name</a>
+               <!--
+               <span><a target="_blank" href="$file.path?be=True"><i class="icon-play"></i></a></span>
+               -->
+            <br>
+      </div>
+   </body>
+</html>

@@ -1,0 +1,20 @@
+-  name: Temperature
+   slug: temperature
+   unitLabel: Degrees Celsius
+   unitLabelShort: °C
+   unitCount: 1
+-  name: Blood Pressure
+   slug: blood-pressure
+   unitLabel: Millimeters of Mercury
+   unitLabelShort: mm Hg
+   unitCount: 2
+-  name: Heart Rate
+   slug: heart-rate
+   unitLabel: Beats per Minute
+   unitLabelShort: bpm
+   unitCount: 1
+-  name: Respiratory Rate
+   slug: respiratory-rate
+   unitLabel: Breaths per Minute
+   unitLabelShort: bpm
+   unitCount: 1
